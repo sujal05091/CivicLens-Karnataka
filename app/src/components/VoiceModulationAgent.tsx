@@ -143,6 +143,7 @@ const KANNADA_SPOKEN_NAMES: Record<string, string> = {
     const ttsUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&lang=${targetLang}`;
 
     const audio = new Audio(ttsUrl);
+    audio.playbackRate = 1.15;
     audioRef.current = audio;
 
     audio.onplay = () => setIsAISpeaking(true);

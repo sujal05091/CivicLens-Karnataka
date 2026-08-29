@@ -64,16 +64,18 @@ export default function HeaderNav() {
         >
           Nearby
         </Link>
-        <Link
-          href="/cases"
-          className={`text-sm font-semibold transition-colors ${
-            pathname === '/cases'
-              ? 'text-[var(--color-civic-blue)] font-extrabold border-b-2 border-[var(--color-civic-blue)] pb-1'
-              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-civic-blue)]'
-          }`}
-        >
-          My Cases
-        </Link>
+        {isLoggedIn && (
+          <Link
+            href="/cases"
+            className={`text-sm font-semibold transition-colors ${
+              pathname === '/cases'
+                ? 'text-[var(--color-civic-blue)] font-extrabold border-b-2 border-[var(--color-civic-blue)] pb-1'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-civic-blue)]'
+            }`}
+          >
+            My Cases
+          </Link>
+        )}
         <Link
           href="/location"
           className={`text-sm font-semibold transition-colors ${

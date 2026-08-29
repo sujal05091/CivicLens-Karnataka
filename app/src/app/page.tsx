@@ -6,6 +6,7 @@ import {
   Camera, Upload, Sparkles, Loader2, Send, ShieldCheck, MapPin, AlertCircle, ArrowRight, X, Image as ImageIcon, CheckCircle2, Award, Info
 } from 'lucide-react';
 import { useReportStore } from '@/store/report-store';
+import { useAuthStore } from '@/store/auth-store';
 import StitchCivicRecordDetail from '@/components/StitchCivicRecordDetail';
 import DisclosureBanner from '@/components/DisclosureBanner';
 import CameraModal from '@/components/CameraModal';
@@ -37,6 +38,7 @@ export default function HomePage() {
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const intakeSectionRef = useRef<HTMLDivElement>(null);
 
+  const { isLoggedIn } = useAuthStore();
   const { setImage, setAiAnalysis, setLocation, setCivicIntelligence, setComplaint, setCaseId } = useReportStore();
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -334,23 +336,25 @@ export default function HomePage() {
       {/* 3. DIRECT INTAKE WORKSPACE ("Report a civic problem") */}
       <div ref={intakeSectionRef} className="px-4 md:px-8 max-w-7xl mx-auto space-y-6">
         
-        {/* PLATFORM MODE SWITCHER TOGGLE BAR */}
-        <div className="flex items-center justify-center">
-          <div className="bg-slate-900 text-white p-1.5 rounded-2xl flex items-center gap-2 max-w-lg w-full text-xs font-extrabold shadow-xl">
-            <button
-              onClick={() => router.push('/')}
-              className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md flex items-center justify-center gap-1.5"
-            >
-              <span>🏛️ Public Civic Problems</span>
-            </button>
-            <button
-              onClick={() => router.push('/personal-grievance')}
-              className="flex-1 py-3 px-4 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5"
-            >
-              <span>👤 Personal Grievances (Sakala)</span>
-            </button>
+        {/* PLATFORM MODE SWITCHER TOGGLE BAR (Visible only when logged in) */}
+        {isLoggedIn && (
+          <div className="flex items-center justify-center">
+            <div className="bg-slate-900 text-white p-1.5 rounded-2xl flex items-center gap-2 max-w-lg w-full text-xs font-extrabold shadow-xl">
+              <button
+                onClick={() => router.push('/')}
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md flex items-center justify-center gap-1.5"
+              >
+                <span>🏛️ Public Civic Problems</span>
+              </button>
+              <button
+                onClick={() => router.push('/personal-grievance')}
+                className="flex-1 py-3 px-4 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>👤 Personal Grievances (Sakala)</span>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Header Title */}
         <div className="text-center space-y-2 max-w-3xl mx-auto">
