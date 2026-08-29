@@ -51,6 +51,15 @@ export default function HomePage() {
   const [showCameraModal, setShowCameraModal] = useState(false);
   const [showSampleModal, setShowSampleModal] = useState(false);
   const [showDemoPopupModal, setShowDemoPopupModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handlePersonalGrievanceClick = () => {
+    if (isLoggedIn) {
+      router.push('/personal-grievance');
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   // Category Selection Prompt State
   const [selectedCategory, setSelectedCategory] = useState<IssueType | null>(null);
@@ -336,25 +345,23 @@ export default function HomePage() {
       {/* 3. DIRECT INTAKE WORKSPACE ("Report a civic problem") */}
       <div ref={intakeSectionRef} className="px-4 md:px-8 max-w-7xl mx-auto space-y-6">
         
-        {/* PLATFORM MODE SWITCHER TOGGLE BAR (Visible only when logged in) */}
-        {isLoggedIn && (
-          <div className="flex items-center justify-center">
-            <div className="bg-slate-900 text-white p-1.5 rounded-2xl flex items-center gap-2 max-w-lg w-full text-xs font-extrabold shadow-xl">
-              <button
-                onClick={() => router.push('/')}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md flex items-center justify-center gap-1.5"
-              >
-                <span>🏛️ Public Civic Problems</span>
-              </button>
-              <button
-                onClick={() => router.push('/personal-grievance')}
-                className="flex-1 py-3 px-4 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5"
-              >
-                <span>👤 Personal Grievances (Sakala)</span>
-              </button>
-            </div>
+        {/* PLATFORM MODE SWITCHER TOGGLE BAR (Visible to all users) */}
+        <div className="flex items-center justify-center">
+          <div className="bg-slate-900 text-white p-1.5 rounded-2xl flex items-center gap-2 max-w-lg w-full text-xs font-extrabold shadow-xl">
+            <button
+              onClick={() => router.push('/')}
+              className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md flex items-center justify-center gap-1.5"
+            >
+              <span>🏛️ Public Civic Problems</span>
+            </button>
+            <button
+              onClick={handlePersonalGrievanceClick}
+              className="flex-1 py-3 px-4 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5"
+            >
+              <span>👤 Personal Grievances (Sakala)</span>
+            </button>
           </div>
-        )}
+        </div>
 
         {/* Header Title */}
         <div className="text-center space-y-2 max-w-3xl mx-auto">
@@ -955,6 +962,51 @@ export default function HomePage() {
                   <span>📁 Upload File</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* LOGIN REQUIRED MODAL POPUP FOR SAKALA PERSONAL GRIEVANCES */}
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full text-center space-y-6 shadow-2xl border border-slate-200 relative">
+            <button
+              onClick={() => setShowLoginModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-50 to-red-100 text-red-600 flex items-center justify-center mx-auto shadow-inner border border-red-200">
+              <ShieldCheck size={32} />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-[10px] font-mono font-extrabold text-red-600 uppercase tracking-widest block">
+                CITIZEN AUTHENTICATION REQUIRED
+              </span>
+              <h3 className="text-xl font-black text-slate-900">
+                Login Required for Sakala Services
+              </h3>
+              <p className="text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                Sakala Personal Grievance filing (Gruha Lakshmi DBT, Ration Card, Pension, Khata) requires verified citizen login for legal protection and tracking.
+              </p>
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <button
+                onClick={() => router.push('/login')}
+                className="w-full py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-2xl font-black text-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2"
+              >
+                <span>Login / Sign Up to Access Sakala</span>
+                <ArrowRight size={18} />
+              </button>
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-extrabold text-xs transition-all"
+              >
+                Cancel & Return
+              </button>
             </div>
           </div>
         </div>
