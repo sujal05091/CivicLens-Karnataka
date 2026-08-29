@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* CivicLens Karnataka Web Platform Design Tokens — Stitch Project 10358711144615222979 */
+@theme inline {
+  --color-civic-blue: #0047AB;
+  --color-civic-blue-dark: #00327D;
+  --color-civic-blue-light: #2559BD;
+  --color-civic-blue-surface: #DAE2FF;
+  --color-civic-blue-container: #E5EEFF;
+
+  --color-ai-teal: #00B2A9;
+  --color-ai-teal-dark: #006A64;
+  --color-ai-teal-light: #6EF4EA;
+  --color-ai-teal-surface: #E0FBF8;
+
+  --color-trust-emerald: #008767;
+  --color-trust-emerald-light: #72F7ED;
+  --color-trust-emerald-surface: #E6FDFB;
+
+  --color-alert-amber: #F59E0B;
+  --color-alert-amber-light: #FFDDB8;
+  --color-alert-amber-dark: #4F3000;
+
+  --color-surface: #F8F9FF;
+  --color-surface-dim: #CBDBF5;
+  --color-surface-container: #E5EEFF;
+  --color-surface-container-high: #DCE9FF;
+  --color-surface-container-low: #EFF4FF;
+  --color-surface-container-lowest: #FFFFFF;
+
+  --color-text-primary: #0B1C30;
+  --color-text-secondary: #434653;
+  --color-text-tertiary: #737784;
+
+  --color-outline: #737784;
+  --color-outline-variant: #C3C6D5;
+
+  --color-error: #BA1A1A;
+  --color-error-container: #FFDAD6;
+
+  --color-success: #008767;
+  --color-warning: #F59E0B;
+  --color-info: #0047AB;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes scanLine {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+  }
+  50% {
+    top: 96%;
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.8;
+  }
+}
+
+.animate-scanLine {
+  animation: scanLine 2s ease-in-out infinite;
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-civic-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container-low);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: var(--radius-full);
+}
+
+/* Pulse animation for active node */
+@keyframes civic-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 71, 171, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 71, 171, 0);
+  }
+}
+
+.civic-pulse {
+  animation: civic-pulse 2s ease-in-out infinite;
+}
+
+/* AI Teal Sparkle Pulse */
+@keyframes teal-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 178, 169, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 178, 169, 0.6);
+  }
+}
+
+.teal-glow {
+  animation: teal-glow 2.5s ease-in-out infinite;
+}
+
+/* Chain connector line */
+.chain-line {
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-civic-blue),
+    var(--color-ai-teal),
+    var(--color-trust-emerald)
+  );
+}
+
+/* Disclosure banner */
+.disclosure-banner {
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Status pill styles */
+.status-active {
+  background: rgba(0, 135, 103, 0.12);
+  color: var(--color-trust-emerald);
+}
+
+.status-expired {
+  background: rgba(186, 26, 26, 0.12);
+  color: var(--color-error);
+}
+
+.status-pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--color-alert-amber-dark);
+}
+
+.status-info {
+  background: rgba(0, 71, 171, 0.12);
+  color: var(--color-civic-blue);
+}
+
+.status-ai {
+  background: rgba(0, 178, 169, 0.15);
+  color: var(--color-ai-teal-dark);
+}
