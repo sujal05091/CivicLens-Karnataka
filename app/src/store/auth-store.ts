@@ -89,9 +89,9 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,
-      profile: DEFAULT_DEMO_PROFILE,
+      profile: null,
       registeredAccounts: SEED_ACCOUNTS,
-      isLoggedIn: true,
+      isLoggedIn: false,
       loading: false,
 
       loginWithEmail: async (email: string, pass: string) => {

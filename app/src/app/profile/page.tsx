@@ -11,7 +11,29 @@ import { useAuthStore } from '@/store/auth-store';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { profile } = useAuthStore();
+  const { isLoggedIn, profile } = useAuthStore();
+
+  if (!isLoggedIn) {
+    return (
+      <div className="px-4 py-20 max-w-md mx-auto text-center space-y-6 animate-fadeIn">
+        <div className="w-20 h-20 bg-blue-50 text-[var(--color-civic-blue)] rounded-3xl flex items-center justify-center mx-auto shadow-inner border border-blue-100">
+          <User size={36} />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-black text-[var(--color-text-primary)]">Login Required</h2>
+          <p className="text-sm text-[var(--color-text-secondary)] font-medium leading-relaxed">
+            Please log in or create a citizen account to view your profile, badges, and contribution history.
+          </p>
+        </div>
+        <button
+          onClick={() => router.push('/login')}
+          className="w-full py-4 bg-[var(--color-civic-blue)] hover:bg-[var(--color-civic-blue-dark)] text-white rounded-full font-black text-sm shadow-md active:scale-95 transition-all"
+        >
+          Login / Sign Up
+        </button>
+      </div>
+    );
+  }
 
   const userDisplayName = profile?.displayName || 'Aarav Patel';
   const userDistrict = profile?.district || 'Bengaluru South District';
